@@ -40,13 +40,13 @@ async function run() {
         app.post('/users', async (req, res) => {
             const user = req.body;
             const query = { email: user.email }
-            // const query = { email: req.query.email }
             const existingUser = await userCollection.findOne(query);
             if (existingUser) {
                 return res.send({ message: 'user already exists', insertedId: null })
             }
             const result = await userCollection.insertOne({ ...user });
-            console.log(result);
+
+            // console.log(result);
             res.send('result');
         });
 
@@ -58,7 +58,8 @@ async function run() {
             data['To-Do'] = [...tasks.filter((task) => task.category === 'To-Do')];
             data['In Progress'] = [...tasks.filter((task) => task.category === 'In Progress')];
             data['Done'] = [...tasks.filter((task) => task.category === 'Done')];
-            console.log(data)
+
+            // console.log(data)
             res.send(data);
         });
 
@@ -89,7 +90,7 @@ async function run() {
             const update = { $set: { title, description, category } };
             const result = await taskCollection.updateOne(query, update);
 
-            console.log(result);
+            // console.log(result);
             res.send('result');
         });
 
@@ -99,7 +100,7 @@ async function run() {
             const query = { _id: new ObjectId(id) };
             const result = await taskCollection.deleteOne(query);
 
-            console.log(result);
+            // console.log(result);
             res.send('result');
         });
 
@@ -111,7 +112,7 @@ async function run() {
 run().catch(console.dir)
 
 app.get('/', (req, res) => {
-    res.send('Hello from ZenAction Server2...')
+    res.send('Hello from ZenAction Server3...')
 })
 
 app.listen(port, () => {
